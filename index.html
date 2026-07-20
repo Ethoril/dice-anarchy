@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shadowrun: Anarchy - Dice Roller</title>
+    <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- HEADER -->
+    <header>
+      <h1>SR: ANARCHY</h1>
+      <button id="info-btn" class="icon-btn" aria-label="Informations">i</button>
+    </header>
+
+    <!-- MAIN APP AREA -->
+    <main id="app">
+      <!-- SETTINGS AREA -->
+      <section class="panel settings-panel">
+        <div class="control-group">
+          <label>Réserve (Total de dés)</label>
+          <div class="counter">
+            <button id="btn-pool-minus" class="neon-btn small" aria-label="Retirer un dé de la réserve">-</button>
+            <span id="val-pool" aria-live="polite">6</span>
+            <button id="btn-pool-plus" class="neon-btn small" aria-label="Ajouter un dé à la réserve">+</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label>Dés de Complication (remplace)</label>
+          <div class="counter">
+            <button id="btn-comp-minus" class="neon-btn small comp-btn" aria-label="Retirer un dé de complication">-</button>
+            <span id="val-comp" class="comp-text" aria-live="polite">0</span>
+            <button id="btn-comp-plus" class="neon-btn small comp-btn" aria-label="Ajouter un dé de complication">+</button>
+          </div>
+        </div>
+
+        <div class="toggles">
+          <label class="toggle-label glitch-toggle">
+            <input type="checkbox" id="toggle-glitch" />
+            <span class="custom-toggle"></span>
+            Dé d'Imprévu (+1 dé)
+          </label>
+
+          <label class="toggle-label luck-toggle">
+            <input type="checkbox" id="toggle-luck" />
+            <span class="custom-toggle"></span>
+            Chance Avant-Jet (Succès 4+)
+          </label>
+        </div>
+      </section>
+
+      <!-- ACTION BUTTON -->
+      <section class="action-section">
+        <button id="btn-roll" class="cyber-btn main-action">LANCER LES DÉS</button>
+      </section>
+
+      <!-- RESULTS AREA -->
+      <section class="panel results-panel hidden" id="results-area">
+        <div class="success-display">
+          <h2>SUCCÈS</h2>
+          <div id="total-successes" class="big-number">0</div>
+        </div>
+
+        <div id="alerts-container"></div>
+
+        <div class="dice-container" id="dice-display">
+          <!-- Dice faces will be injected here -->
+        </div>
+
+        <div class="reroll-section">
+          <button id="btn-reroll-failures" class="neon-btn luck-btn hidden">
+            Relancer les dés (Point de Chance)
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- MODAL INFO -->
+    <div id="info-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modal-title">Règles & Dés</h2>
+          <button id="close-modal" class="icon-btn" aria-label="Fermer">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Succès Standard :</strong> Chaque résultat de 5 ou 6 sur un dé donne un succès.</p>
+          <p><strong>Chance (Avant-Jet) :</strong> Abaisse le seuil de réussite. Les 4, 5 et 6 deviennent des succès.</p>
+          <p><strong>Relance (Après-Jet) :</strong> Permet de dépenser un point de Chance pour relancer <em>tous</em> les dés. Un dé ayant généré un effet acquis — <em>Complication</em> ou <em>Exploit</em> — est toutefois verrouillé et n'est pas relancé.</p>
+          
+          <div class="die-info">
+            <div class="die sample-normal">N</div>
+            <div><strong>Dé Normal :</strong> Dé classique. Participe à la réserve.</div>
+          </div>
+          <div class="die-info">
+            <div class="die sample-glitch">I</div>
+            <div><strong>Dé d'Imprévu :</strong> S'ajoute à la réserve. Un 5 ou 6 génère un <em>Exploit</em> (réussite critique). Un 1 génère une <em>Complication</em> (échec critique). Il compte aussi comme un succès s'il atteint le seuil.</div>
+          </div>
+          <div class="die-info">
+            <div class="die sample-comp">C</div>
+            <div><strong>Dé de Complication :</strong> Remplace des dés de la réserve. Un 1 génère une <em>Complication</em>. Ne génère pas d'Exploit, mais compte comme un succès normal s'il atteint le seuil.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
